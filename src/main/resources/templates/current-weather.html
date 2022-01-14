@@ -5,8 +5,13 @@
     <title>Current Weather</title>
 </head>
 <body>
+<!--/*@thymesVar id="currentWeather" type="weather.remote_weather_api.Weather.CurrentWeather"*/-->
 
 <div>
+    <h3>Country</h3>
+    <p th:text="${currentWeather.country}">Description</p>
+    <h3>City</h3>
+    <p th:text="${currentWeather.city}">Description</p>
     <h3>Current Conditions</h3>
     <p th:text="${currentWeather.description}">Description</p>
     <h3>Temperature</h3>
