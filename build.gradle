@@ -11,6 +11,10 @@ sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.clojars.org'
+        name 'Clojars'
+    }
 }
 
 dependencies {
@@ -20,11 +24,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.2'
     implementation 'io.split.client:java-client:4.3.0'
     implementation 'org.json:json:20210307'
-    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
-    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-// https://mvnrepository.com/artifact/org.webjars.bower/jquery
-    implementation 'org.webjars.bower:jquery:3.6.0'
-
+    // https://mvnrepository.com/artifact/com.bettercloud/vault-java-driver
+    implementation 'com.bettercloud:vault-java-driver:5.1.0'
 
 
 }
@@ -32,5 +33,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
 
