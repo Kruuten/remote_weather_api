@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
 import weather.remote_weather_api.Weather.CurrentWeather;
-
 import java.math.BigDecimal;
 import java.net.URI;
 
 @Service
-public class LiveWeatherService {
+public class WeatherService {
 
     private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q={city},{country}&APPID={key}&units=metric";
 
-    @Value("2440d8dd3f7174db3c12ba0537447416")
+
+    @Value("${API_KEY}")
     private String apiKey;
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    public LiveWeatherService(RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
+    public WeatherService(RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
         this.restTemplate = restTemplateBuilder.build();
         this.objectMapper = objectMapper;
     }
@@ -42,7 +42,7 @@ public class LiveWeatherService {
             JsonNode root = objectMapper.readTree(response.getBody());
             return new CurrentWeather(root.path("weather").get(0).path("main").asText(),
                     root.path("name").asText(),
-                    root.path("country").asText(),
+                    root.path("sys").path("country").asText(),
                     BigDecimal.valueOf(root.path("main").path("temp").asDouble()),
                     BigDecimal.valueOf(root.path("main").path("feels_like").asDouble()),
                     BigDecimal.valueOf(root.path("main").path("pressure").asDouble()),
