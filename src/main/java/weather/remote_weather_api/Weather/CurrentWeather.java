@@ -2,7 +2,6 @@ package weather.remote_weather_api.Weather;
 
 
 import org.json.JSONArray;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,13 +22,15 @@ public class CurrentWeather implements Serializable {
     private BigDecimal feelsLike;
     private BigDecimal pressure;
     private BigDecimal windSpeed;
-    private Set<String> countries;
-    private Map<String, String> worldMap;
+    private static Set<String> countries;
+    private static Map<String, String> worldMap;
 
     public CurrentWeather() {
     }
 
-    public CurrentWeather(String city, String country, String description, BigDecimal temperature, BigDecimal feelsLike, BigDecimal pressure, BigDecimal windSpeed) {
+    public CurrentWeather(String description,String city, String country, BigDecimal temperature,
+                          BigDecimal feelsLike, BigDecimal pressure, BigDecimal windSpeed
+    ) {
         this.city = city;
         this.country = country;
         this.description = description;
@@ -100,27 +101,25 @@ public class CurrentWeather implements Serializable {
     }
 
     public void setCountries(Set<String> countries) {
-        this.countries = countries;
+        CurrentWeather.countries = countries;
     }
 
-    public Map<String, String> getWorldMap() {
+    public static Map<String, String> getWorldMap() {
         return worldMap;
     }
 
-    public void setWorldMap(Map<String, String> worldMap) {
-        this.worldMap = worldMap;
+    public static void setWorldMap(Map<String, String> worldMap) {
+        CurrentWeather.worldMap = worldMap;
     }
 
-    public Map<String, String> initWorldMap(){
+    public static Map<String, String> initWorldMap(){
+        Map<String, String> worldMap = new TreeMap<>();
         try {
             JSONArray obj = jsonPath();
-            Map<String, String> worldMap = new TreeMap<>();
-            Set<String> countries = new TreeSet<>();
             for (int i = 0; i < obj.length(); i++) {
                 String city = obj.getJSONObject(i).getString("name");
                 String country = obj.getJSONObject(i).getString("country");
                 worldMap.put(city, country);
-                countries.add(country);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,10 +127,10 @@ public class CurrentWeather implements Serializable {
         return worldMap;
     }
 
-    public Set<String> initCountriesSet(){
+    public static Set<String> initCountriesSet(){
+        Set<String> countries = new TreeSet<>();
         try {
             JSONArray obj = jsonPath();
-            Set<String> countries = new TreeSet<>();
             for (int i = 0; i < obj.length(); i++) {
                 String country = obj.getJSONObject(i).getString("country");
                 countries.add(country);
