@@ -1,4 +1,4 @@
-package weather.remote_weather_api.Weather;
+package weather.remote_weather_api.Entity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -57,13 +57,21 @@ public class ShowWeather {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-            double maxPressure = pressureList.stream().max(Comparator.comparing(Double::valueOf)).get();
-            double maxPressDate = (double) dailyList.get(pressureList.indexOf(maxPressure)).get("dt");
+            double maxPressure = pressureList
+                    .stream()
+                    .max(Comparator.comparing(Double::valueOf)).get();
+            double maxPressDate = (double) dailyList
+                    .get(pressureList.indexOf(maxPressure)).get("dt");
             LocalDate maxDateTime = LocalDate.ofInstant(Instant.ofEpochSecond((long) maxPressDate), TimeZone.getDefault().toZoneId());
 
 
-            double minTemperature = temperatureList.stream().min(Comparator.comparing(Double::valueOf)).get();
-            double minTempDate = (double) dailyList.get(temperatureList.indexOf(minTemperature)).get("dt");
+            double minTemperature = temperatureList
+                    .stream()
+                    .min(Comparator.comparing(Double::valueOf))
+                    .get();
+            double minTempDate = (double) dailyList
+                    .get(temperatureList.indexOf(minTemperature))
+                    .get("dt");
             LocalDate minDateTime = LocalDate.ofInstant(Instant.ofEpochSecond((long)minTempDate), ZoneId.systemDefault());
 
             System.out.println(resultMap.get("timezone"));
@@ -78,7 +86,6 @@ public class ShowWeather {
     }
 
     public static Map<String, Object> jsonConverter(String jsonData){
-
         return new Gson().fromJson(jsonData, new TypeToken<Map<String, Object>>(){}
                          .getType());
     }

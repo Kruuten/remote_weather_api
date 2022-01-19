@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
-import weather.remote_weather_api.Weather.CurrentWeather;
+import weather.remote_weather_api.Entity.CurrentWeather;
 import java.math.BigDecimal;
 import java.net.URI;
 
